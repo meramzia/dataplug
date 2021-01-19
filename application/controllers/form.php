@@ -5520,7 +5520,8 @@ class Form extends CI_Controller {
          * its call back function call
          */
         foreach ($filter_attribute as $filter_attribute_value) {
-            uasort($record_array_final_filter, array(new SortAssociativeArray($filter_attribute_value), "call"));
+            uasort($record_array_final_filter,
+				array(new SortAssociativeArray($filter_attribute_value), "call"));
         }
         $only_once_category_icon = array();
         $column_number = 0;
@@ -5528,7 +5529,8 @@ class Form extends CI_Controller {
         foreach ($filter_attribute as $filter_attribute_value) {
             foreach ($record_array_final_filter as $form_item) {
                 $icon_pair_array = array();
-                if (isset($form_item[$filter_attribute_value]) && !empty($form_item[$filter_attribute_value])) {
+                if (isset($form_item[$filter_attribute_value])
+						&& !empty($form_item[$filter_attribute_value])) {
                     $category = strtolower($form_item[$filter_attribute_value]);
                     if (!in_array($form_item[$filter_attribute_value], $only_once_category_icon)) {
                         $column_number++;
@@ -5536,9 +5538,11 @@ class Form extends CI_Controller {
                         if (!file_exists(FCPATH . "assets/images/map_pins/" . $form_item['pin'])) {
                             $icon_filename_cat = base_url() . "assets/images/map_pins/default_pin.png";
                         } else {
-                            $icon_filename_cat = base_url() . "assets/images/map_pins/" . $form_item['pin'];
+                            $icon_filename_cat = base_url() . "assets/
+								images/map_pins/" . $form_item['pin'];
                         }
-                        $icon_pair_array = array_merge($icon_pair_array, array($category => $icon_filename_cat));
+                        $icon_pair_array = array_merge($icon_pair_array,
+							array($category => $icon_filename_cat));
                         $icon_pair_array_final[] = $icon_pair_array;
                     }
                 }
@@ -5549,8 +5553,10 @@ class Form extends CI_Controller {
         $record_array_final = array();
         foreach ($forms_list as $form_entity) {
             $table_name = $form_entity['table_name'];
-//            $results = $this->form_results_model->get_form_results_by_town($table_name, $town);
-            $results = $this->form_results_model->get_form_results_by_sent_by($table_name, $sent_by_filter, $uc_filter);
+//            $results = $this->form_results_model->get_form_results_by_town(
+//						$table_name, $town);
+            $results = $this->form_results_model->get_form_results_by_sent_by(
+				$table_name, $sent_by_filter, $uc_filter);
             $results_comined = array_merge($results_comined, $results);
         }
         $filter_exist_array = array();
@@ -5575,7 +5581,8 @@ class Form extends CI_Controller {
                 if (in_array($key, $filter_attribute)) {
                     $value = trim($value);
                     $valueforarray = str_replace(' ', '_', $value);
-                    if (isset($map_saved_pins[$key][$valueforarray]) && $map_saved_pins[$key][$valueforarray] != '') {
+                    if (isset($map_saved_pins[$key][$valueforarray])
+							&& $map_saved_pins[$key][$valueforarray] != '') {
                         $pin_name = $map_saved_pins[$key][$valueforarray];
                     } else
                     if (!in_array($valueforarray, $filter_exist_array)) {
@@ -5591,7 +5598,8 @@ class Form extends CI_Controller {
                             $exist_alpha[$first_char] = '1';
                             $pin_name = $first_char . '1.png';
                         }
-                        $pin_exist_for_cat = array_merge($pin_exist_for_cat, array($valueforarray => $pin_name));
+                        $pin_exist_for_cat = array_merge($pin_exist_for_cat
+							, array($valueforarray => $pin_name));
                     } else {
                         if (array_key_exists($valueforarray, $pin_exist_for_cat)) {
                             $pin_name = $pin_exist_for_cat[$valueforarray];
@@ -5617,20 +5625,23 @@ class Form extends CI_Controller {
                 $record_array_final[] = $record_array;
             }
         }
-        $data['locations'] = $this->getMapHtmlInfoAjax($record_array_final, $heading_array, $filter_attribute, $icon_pair_array_final);
+        $data['locations'] = $this->getMapHtmlInfoAjax($record_array_final
+			, $heading_array, $filter_attribute, $icon_pair_array_final);
     }
 
     /**
      * Inline method giving string of records ajax based
      * @param  $locations array of  all data having info about each single record
-     * @param  $filter_attribute list of attributed based on data is parsed icons assigned
+     * @param  $filter_attribute list of attributed based 
+			on data is parsed icons assigned
      * @param  $headings Heading list fetched from all results
      * @param  $icon_pair_array_final Pair of icon for map
      * @return  string A string concatinated with commas
      * @access Inline
      * @author UbaidUllah Balti <ubaidcskiu@gmail.com>
      */
-    private function getMapHtmlInfoAjax($locations = array(), $headings = array(), $filter_attribute, $icon_pair_array_final) {
+    private function getMapHtmlInfoAjax($locations = array(), 
+		$headings = array(), $filter_attribute, $icon_pair_array_final) {
         $final1 = array();
         $filter_exist_array = array();
         $exist_alpha = array();
@@ -5643,8 +5654,11 @@ class Form extends CI_Controller {
                 if (!in_array($filter_attribute_value, $searched_filter_attribute)) {
                     foreach ($locations as $form_item) {
                         if (isset($form_item[$filter_attribute_value])) {
-                            $category_name = (!empty($form_item[$filter_attribute_value])) ? $form_item[$filter_attribute_value] : "No " . ucfirst($filter_attribute_value);
-                            if (isset($form_item[$filter_attribute_value]) && !empty($form_item[$filter_attribute_value])) {
+                            $category_name = (!empty($form_item[$filter_attribute_value])) 
+							? $form_item[$filter_attribute_value] : 
+							"No " . ucfirst($filter_attribute_value);
+                            if (isset($form_item[$filter_attribute_value]) && 
+							!empty($form_item[$filter_attribute_value])) {
                                 if (!in_array($form_item[$filter_attribute_value], $only_once_category)) {
                                     $column_number++;
                                     $only_once_category[] = $form_item[$filter_attribute_value];
@@ -5680,12 +5694,23 @@ class Form extends CI_Controller {
                                         
                                     } else if ($headings[$i] == 'image') {
                                         $path = $form_item[$headings[$i]];
-                                        $image_row = "<tr align='center'><td colspan='2'><a href=" . $path . " class='image_colorbox' title='All Rights Reserved © 2013-" . date('Y') . " - " . PLATFORM_NAME . " Developed By ITU Government of Punjab - Pakistan'><img src=" . $path . " alt='' width='200' height='200'/></a></td></tr>";
+                                        $image_row = "<tr align='center'><td colspan='2'>
+											<a href=" . $path . " class='image_colorbox' title=
+												'All Rights Reserved © 2013-" . date('Y') . " - " . PLATFORM_NAME . " 
+													Developed By ITU Government of Punjab - Pakistan'>
+												<img src=" . $path . " alt='' width='200' height='200'/></a></td></tr>";
                                     } else if ($headings[$i] == 'created_datetime') {
-                                        $datetime_row .='<tr><td><b>DATE : </b></td><td>' . date('Y-m-d', strtotime($form_item[$headings[$i]])) . '</td></tr><tr><td><b>TIME : </b></td><td>' . date('H:i:s', strtotime($form_item[$headings[$i]])) . '</td></tr>';
+                                        $datetime_row .='<tr><td><b>DATE : </b></td><td>' . date('Y-m-d',
+										strtotime($form_item[$headings[$i]])) . '</td></tr><tr><td><b>TIME
+										: </b></td><td>' . date('H:i:s', strtotime($form_item[$headings[$i]])) . '</td></tr>';
                                     } else {
-                                        $map_data .= preg_replace('/[^a-zA-Z0-9_ \[\]\.\-]/s', '', $headings[$i]) . ' : ' . preg_replace('/[^a-zA-Z0-9_ \[\]\.\-]/s', '', $form_item[$headings[$i]]) . '<br>\n';
-                                        $data_row .= "<tr><td><b>" . preg_replace("/[^A-Za-z0-9\-]/", " ", strtoupper(urldecode($headings[$i]))) . " : </b></td><td>" . preg_replace('/[^a-zA-Z0-9_ \[\]\.\-]/s', '', strtoupper($form_item[$headings[$i]])) . "</td></tr>";
+                                        $map_data .= preg_replace('/[^a-zA-Z0-9_ \[\]\.\-]/s', ''
+										, $headings[$i]) . ' : ' . preg_replace('/[^a-zA-Z0-9_ \[\]\.\-]/s'
+										, '', $form_item[$headings[$i]]) . '<br>\n';
+                                        $data_row .= "<tr><td><b>" . preg_replace("/[^A-Za-z0-9\-]/", " ", 
+											strtoupper(urldecode($headings[$i]))) . " : </b></td><td>" . preg_replace(
+											'/[^a-zA-Z0-9_ \[\]\.\-]/s', '', 
+											strtoupper($form_item[$headings[$i]])) . "</td></tr>";
                                         $id = $form_item['id'];
                                     }
                                 }
@@ -5710,7 +5735,8 @@ class Form extends CI_Controller {
     }
 
     /**
-     * map activity detail when on click on map marker  auto clicked for singel marker
+     * map activity detail when on click on map marker  auto clicked 
+		for singel marker
      * @return  string information about a single string
      * @access Inline
      * @author UbaidUllah Balti <ubaidcskiu@gmail.com>
@@ -5727,7 +5753,8 @@ class Form extends CI_Controller {
         $data['app_id'] = $selected_form['app_id'];
         $filter_attribute = array();
         if ($selected_form['filter'] != '') {
-            $filter_rec = array_filter(array_map('trim', explode(',', $selected_form['filter'])));
+            $filter_rec = array_filter(array_map('trim',
+				explode(',', $selected_form['filter'])));
             foreach ($filter_rec as $key => $value) {
                 array_push($filter_attribute, $value);
             }
@@ -5735,7 +5762,10 @@ class Form extends CI_Controller {
         $data['filter_attribute'] = $filter_attribute;
         $record_array_final = array();
         $results = $this->form_results_model->get_results_single($slug, $table_name);
-        $exclude_array = array('id', 'remote_id', 'imei_no', 'uc_name', 'town_name', 'location', 'form_id', 'img1', 'img2', 'img3', 'img4', 'img5', 'img1_title', 'img2_title', 'img3_title', 'img4_title', 'img5_title', 'is_deleted');
+        $exclude_array = array('id', 'remote_id', 'imei_no', 'uc_name', 
+		'town_name', 'location', 'form_id', 'img1', 'img2', 'img3', 
+		'img4', 'img5', 'img1_title', 'img2_title', 'img3_title',
+		'img4_title', 'img5_title', 'is_deleted');
         $filter_exist_array = array();
         $pin_exist_for_cat = array();
         $col_pin = 0;
