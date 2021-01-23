@@ -5548,8 +5548,8 @@ class Form extends CI_Controller {
                         if (!file_exists(FCPATH . "assets/images/map_pins/" . $form_item['pin'])) {
                             $icon_filename_cat = base_url() . "assets/images/map_pins/default_pin.png";
                         } else {
-                            $icon_filename_cat = base_url() . "assets/
-								images/map_pins/" . $form_item['pin'];
+                            $icon_filename_cat = base_url() . "assets/images/map_pins/" 
+							. $form_item['pin'];
                         }
                         $icon_pair_array = array_merge($icon_pair_array,
 							array($category => $icon_filename_cat));
@@ -5704,15 +5704,16 @@ class Form extends CI_Controller {
                                         
                                     } else if ($headings[$i] == 'image') {
                                         $path = $form_item[$headings[$i]];
-                                        $image_row = "<tr align='center'><td colspan='2'>
-											<a href=" . $path . " class='image_colorbox' title=
-												'All Rights Reserved © 2013-" . date('Y') . " - " . PLATFORM_NAME . " 
-													Developed By ITU Government of Punjab - Pakistan'>
-												<img src=" . $path . " alt='' width='200' height='200'/></a></td></tr>";
+                                        $image_row = "<tr align='center'><td colspan='2'><a href=" 
+										. $path . " class='image_colorbox' title='All Rights Reserved © 2013-" 
+										. date('Y') . " - " . PLATFORM_NAME . 
+										" Developed By ITU Government of Punjab - Pakistan'><img src=" 
+										. $path . " alt='' width='200' height='200'/></a></td></tr>";
                                     } else if ($headings[$i] == 'created_datetime') {
-                                        $datetime_row .='<tr><td><b>DATE : </b></td><td>' . date('Y-m-d',
-										strtotime($form_item[$headings[$i]])) . '</td></tr><tr><td><b>TIME
-										: </b></td><td>' . date('H:i:s', strtotime($form_item[$headings[$i]])) . '</td></tr>';
+                                        $datetime_row .='<tr><td><b>DATE : </b></td><td>' .
+										date('Y-m-d',strtotime($form_item[$headings[$i]])) . 
+										'</td></tr><tr><td><b>TIME: </b></td><td>' . date('H:i:s',
+										strtotime($form_item[$headings[$i]])) . '</td></tr>';
                                     } else {
                                         $map_data .= preg_replace('/[^a-zA-Z0-9_ \[\]\.\-]/s', ''
 										, $headings[$i]) . ' : ' . preg_replace('/[^a-zA-Z0-9_ \[\]\.\-]/s'
@@ -5920,8 +5921,8 @@ class Form extends CI_Controller {
                                 $date_time = $form_item[$heading_array[$i]];
                                 $html_layout = array_merge($html_layout, array('date_time' => $date_time));
                             } else {
-                                $field_name = preg_replace("/[^A-Za
-										-z0-9\-]/", " ", strtoupper(urldecode($heading_array[$i])));
+                                $field_name = preg_replace("/[^A-Za-z0-9\-]/",
+								" ", strtoupper(urldecode($heading_array[$i])));
                                 $field_value = strtoupper($form_item[$heading_array[$i]]);
                                 $html_layout = array_merge($html_layout, array($field_name => $field_value));
                                 $id = $form_item['id'];
@@ -6051,8 +6052,8 @@ class Form extends CI_Controller {
                 unset($post['image']);
             }
             $json_result = json_encode($post);
-            if (!file_exists(FCPATH . 'assets/images/
-					data/form-data/' . $image_name . '.jpg')) {
+            if (!file_exists(FCPATH . 'assets/images/data/form-data/' .
+				$image_name . '.jpg')) {
                 $data = array(
                     'record' => $json_result,
                 );
